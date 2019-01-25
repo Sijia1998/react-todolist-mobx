@@ -12,14 +12,14 @@ class Todo {
 
 class TodoList {
   @observable todos = [];
+  @observable searchList = [];
 
   @computed get unfinishedTodoCount() {
     return this.todos.filter(todo => !todo.isfinished).length;
   }
   @computed get howToShow() {
-    console.log(this.unfinishedTodoCount);
     if (this.unfinishedTodoCount === 0) {
-      return <p>暂无</p>;
+      return <p>全部任务都已完成</p>;
     } else {
       return <p>当前未完成的任务有{this.unfinishedTodoCount}</p>;
     }
@@ -32,15 +32,20 @@ class TodoList {
   @action changeTodo(index) {
     this.todos[index].isfinished = !this.todos[index].isfinished;
   }
+  @action changeTodoTitle(index, value) {
+    console.log('yes');
+    this.todos[index].title = value;
+  }
   @action deleteTodo(index) {
     this.todos.splice(index, 1);
   }
-  @action searchTodo(context) {
-    this.todos
-      .filter(todo => todo.title.indexOf(context) > -1)
-      .map(item => {
-        return <div>{item.title}</div>;
-      });
+  @action searchTodo(inputValue) {
+    this.searchList = this.todos.filter(
+      todo => todo.title.indexOf(inputValue) > -1
+    );
+  }
+  @action reviseTodo(index, value) {
+    this.todos[index].title = value;
   }
 }
 

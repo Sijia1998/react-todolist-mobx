@@ -1,0 +1,8 @@
+.inputStyle {
+  border: none;
+}
+.inputStyle:focus {
+  outline: none;
+}
+.inputFocusStyle:focus {
+}
